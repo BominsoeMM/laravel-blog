@@ -24,14 +24,20 @@
                    <td>{{$category->id}}</td>
                    <td>{{$category->title}}
                        <br>
+                       <span class="badge bg-warning">
+                            {{\App\Models\User::find($category->user_id)->name}}
+                        </span>
                    <span class="badge bg-warning">
                        {{$category->slug}}
                    </span>
                    </td>
                     <td>
+                        @can('update',$category)
                         <a class="btn btn-outline-warning" href="{{route('category.edit',$category->id)}}">
                             <i class="bi bi-pen-fill"></i>
                         </a>
+                        @endcan
+                        @can('delete',$category)
                         <form method="post" class="d-inline-block" action="{{route('category.destroy',$category->id)}}">
                             @csrf
                             @method('delete')
@@ -39,6 +45,7 @@
                                 <i class="bi bi-trash2"></i>
                             </button>
                         </form>
+                            @endcan
                     </td>
                     <td>
                         <p class="small ">

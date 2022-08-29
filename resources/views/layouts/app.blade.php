@@ -13,11 +13,16 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.29/sweetalert2.css" integrity="sha512-e+TwvhjDvKqpzQLJ7zmtqqz+5jF9uIOa+5s1cishBRfmapg7mqcEzEl44ufb04BXOsEbccjHK9V0IVukORmO8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div id="app">
+        <p>
+
+        </p>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -71,10 +76,48 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <main class="py-3">
+            @auth()
+            <div class="container-fluid">
+                <div class="row g-2">
+                    <div class="border p-2 col-lg-2">
+                            @include('layouts.sidebar')
+                    </div>
+                    <div class="m-2 col-lg-9">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+            @endauth
+            @guest()
             @yield('content')
+                @endguest
         </main>
     </div>
+@stack('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.29/sweetalert2.min.js" integrity="sha512-gCB2+0sWe4La5U90EqaPP2t58EczKkQE9UoCpnkG2EDSOOihgX/6MiT3MC4jYVEX03pv6Ydk1xybLG/AtN+3KQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        @if(session('status'))
+        {{--showToast("{{ session("status") }}")--}}
+        //  showToast("Hello")
+        let message = "{{session('status')}}";
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: message
+        })
+        @endif
+    </script>
 </body>
 </html>

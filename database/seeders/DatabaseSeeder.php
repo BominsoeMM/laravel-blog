@@ -19,23 +19,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'Bominsoe',
-             'email' => 'bominsoe@example.com',
-             'password' => Hash::make('bominsoe777')
-         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Bominsoe',
+            'email' => 'bominsoe@example.com',
+            'password' => Hash::make('bominsoe777')
+        ]);
 
-        $categories = ["IT New","Sport","Foot & Drinks","Travel"];
 
-        foreach ($categories as $category){
-            Category::factory()->create([
-                'title' => $category,
-                'slug' => \Illuminate\Support\Str::slug($category),
-                'user_id' => User::inRandomOrder()->first()->id
-            ]);
-        }
-        Post::factory(250)->create();
+        $$this->call([
+            PostSeeder::class,
+            CategorySeeder::class
+        ]);
+
     }
 }

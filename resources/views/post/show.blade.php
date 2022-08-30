@@ -16,11 +16,11 @@
             <div class="">
                 <span class="badge bg-dark">
                     <i class="bi bi-person-circle"></i>
-                    {{ \App\Models\User::find($post->user_id)->name }}
+                    {{ $post->user->name }}
                 </span>
                 <span class="badge bg-dark">
                     <i class="bi bi-tag"></i>
-                    {{ \App\Models\Category::find($post->category_id)->title }}
+                    {{ $post->category->title }}
                 </span>
                 <span class="badge bg-dark">
                         <i class="bi bi-calendar"></i>

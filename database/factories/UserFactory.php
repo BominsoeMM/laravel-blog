@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Nation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'nation_id' => Nation::inRandomOrder()->first()->id,
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),

@@ -39,11 +39,11 @@
                         <td>{{$post->title}}
                             <br>
                             <span class="badge bg-warning">
-                            {{\App\Models\Category::find($post->category_id)->title}}
+                            {{$post->category->title}}
                         </span>
                           @notAuthor
                             <span class="badge bg-primary">
-                            {{\App\Models\User::find($post->user_id)->name}}
+                            {{$post->user->name}}
                         </span>
                                 @endnotAuthor
                         </td>

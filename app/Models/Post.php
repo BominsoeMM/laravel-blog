@@ -14,4 +14,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
     use HasFactory;
+
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
 }

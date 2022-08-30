@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Psy\Util\Str;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,11 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PostSeeder::class,
         ]);
+
+        echo "\e[93mCleaning Storage.\n";
+        $clean = Storage::allFiles('public');
+        array_shift($clean);
+        Storage::delete($clean);
+        echo "\e[93nStorage Cleaned.\n";
     }
 }

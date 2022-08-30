@@ -27,6 +27,8 @@ class UpdatePostRequest extends FormRequest
             "title" => "required|min:3|unique:posts,title,".$this->route('post')->id,
             "category" => "required|exists:categories,id",
             "description" => "required|min:10",
+            "photos" => "required",
+            "photos.*" => "nullable|mimes:jpg,jpeg,bmp,png|max:512",
             "featured_image" => "nullable|mimes:jpg,jpeg,bmp,png"
         ];
     }

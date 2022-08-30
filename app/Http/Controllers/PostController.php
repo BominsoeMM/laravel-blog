@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -59,6 +60,14 @@ class PostController extends Controller
             $posts->featured_image = $newName;
         }
         $posts->save();
+        foreach ($request->photos as $photo){
+        $newName = uniqid() . 'photos.' .$photo->extension();
+        $photo->storeAs('public', $newName);
+        $photo = new Photo();
+        $photo->post_id = $posts->id;
+        $photo->name = $newName;
+        $photo->save();
+    }
         return redirect()->route('post.index')->with('status', 'Post Uploaded Successfully.');
 
     }
@@ -112,6 +121,14 @@ class PostController extends Controller
             $post->featured_image = $newName;
         }
         $post->update();
+        foreach ($request->photos as $photo){
+            $newName = uniqid() . 'photos.' .$photo->extension();
+            $photo->storeAs('public', $newName);
+            $photo = new Photo();
+            $photo->post_id = $post->id;
+            $photo->name = $newName;
+            $photo->save();
+        }
         return redirect()->route('post.index')->with('status', 'Post Updated Successfully.');
     }
 
@@ -129,6 +146,10 @@ class PostController extends Controller
         $postTitle = $post->title;
         if (isset($post->featured_image)) {
             Storage::delete('public/' . $post->featured_image);
+        }
+        foreach ($post->photos as $photo){
+            Storage::delete('public/' . $photo->name);
+            $photo->delete();
         }
         $post->delete();
         return redirect()->route('post.index')->with('status', strtoupper($postTitle) . ' is deleted successfully.');

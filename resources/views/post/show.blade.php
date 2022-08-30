@@ -32,15 +32,20 @@
                 </span>
             </div>
             <hr>
-
+            <div class="mb-3 text-center">
+                @isset($post->featured_image)
+                    <img src="{{asset('storage/'.$post->featured_image)}}" class="w-50 mt-3 rounded" alt="">
+                @endisset
+            </div>
             <p>
                 {{$post->description}}
             </p>
-
-            <div class="mb-3">
-                @isset($post->featured_image)
-                    <img src="{{asset('storage/'.$post->featured_image)}}" class="w-100 mt-3" alt="">
-                @endisset
+            <div class="mb-3  d-flex">
+                @foreach($post->photos as $photo)
+                    <div class="me-3">
+                        <img src="{{asset('storage/'.$photo->name)}}" height="200" class="rounded text-center" alt="">
+                    </div>
+                @endforeach
             </div>
             <hr>
             <div class="d-flex justify-content-between">

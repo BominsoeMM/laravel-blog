@@ -40,19 +40,33 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="photos" class="form-label">Select Photo</label>
+                    <input id="photos"
+                           multiple
+                           class="form-control @error('photos') is-invalid @enderror() @error('photos.*') is-invalid @enderror()"
+                           name="photos[]"
+                           type="file">
+                    @error('photos')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
+                    @error('photos.*')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="description" class="form-label">Post Title</label>
                     <textarea id="description"
-                           class="form-control @error('description') is-invalid @enderror()"
+                              class="form-control @error('description') is-invalid @enderror()"
                               rows="10"
-                           name="description"
-                           type="text">{{old('description')}}</textarea>
+                              name="description"
+                              type="text">{{old('description')}}</textarea>
                     @error('description')
                     <div class="invalid-feedback">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="">
-                        <label for="featured_image" class="form-label">Select Image</label>
+                        <label for="featured_image" class="form-label">Featured Image</label>
                         <input id="featured_image"
                                class="form-control @error('featured_image') is-invalid @enderror()"
                                name="featured_image"

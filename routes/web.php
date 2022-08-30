@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\NationController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
@@ -23,7 +26,8 @@ Route::get('/test',[\App\Http\Controllers\HomeController::class,'test'])->name('
 Route::middleware('auth')->group(function (){
     Route::resource('category',CategoryController::class);
     Route::resource('post',PostController::class);
-    Route::resource('nation',\App\Http\Controllers\NationController::class);
-    Route::resource('users',\App\Http\Controllers\UserController::class)->middleware('isAdmin');
+    Route::resource('photo',PhotoController::class);
+    Route::resource('nation',NationController::class);
+    Route::resource('users',UserController::class)->middleware('isAdmin');
 });
 

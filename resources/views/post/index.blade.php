@@ -41,9 +41,11 @@
                             <span class="badge bg-warning">
                             {{\App\Models\Category::find($post->category_id)->title}}
                         </span>
-                            <span class="badge bg-warning">
+                          @notAuthor
+                            <span class="badge bg-primary">
                             {{\App\Models\User::find($post->user_id)->name}}
                         </span>
+                                @endnotAuthor
                         </td>
                         <td>
                             <a class="btn btn-outline-primary" href="{{route('post.show',$post->id)}}">

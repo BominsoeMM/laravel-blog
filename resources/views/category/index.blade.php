@@ -24,9 +24,11 @@
                    <td>{{$category->id}}</td>
                    <td>{{$category->title}}
                        <br>
+                       @notAuthor
                        <span class="badge bg-warning">
                             {{\App\Models\User::find($category->user_id)->name}}
                         </span>
+                       @endnotAuthor
                    <span class="badge bg-warning">
                        {{$category->slug}}
                    </span>

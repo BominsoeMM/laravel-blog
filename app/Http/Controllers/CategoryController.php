@@ -18,8 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('category.index',compact('categories'));
+        $categories = Category::latest("id")
+            ->when(Auth::user()->isAuthor(), fn($q) => $q->where('user_id', Auth::id()))
+            ->get();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -35,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
+     * @param \App\Http\Requests\StoreCategoryRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCategoryRequest $request)
@@ -44,14 +46,14 @@ class CategoryController extends Controller
         $categories->title = $request->title;
         $categories->slug = Str::slug($request->title);
         $categories->user_id = Auth::id();
-       $categories->save();
-        return redirect()->route('category.index')->with('status', strtoupper($categories->title ).' is added Successfully');
+        $categories->save();
+        return redirect()->route('category.index')->with('status', strtoupper($categories->title) . ' is added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -62,41 +64,42 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        return view('category.edit',compact('category'));
+        Gate::authorize('update', $category);
+        return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
+     * @param \App\Http\Requests\UpdateCategoryRequest $request
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        Gate::authorize('update',$category);
+        Gate::authorize('update', $category);
         $category->title = $request->title;
         $category->slug = Str::slug($request->title);
         $category->update();
-        return redirect()->route('category.index')->with('status',strtoupper($category->title).' is update successfully.');
+        return redirect()->route('category.index')->with('status', strtoupper($category->title) . ' is update successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('delete',$category);
+        Gate::authorize('delete', $category);
         $categoryTitle = $category->title;
         $category->delete();
-        return redirect()->route('category.index')->with('status',strtoupper($categoryTitle).' is deleted successfully.');
+        return redirect()->route('category.index')->with('status', strtoupper($categoryTitle) . ' is deleted successfully.');
     }
 }

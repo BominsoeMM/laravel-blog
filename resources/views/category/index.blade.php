@@ -14,6 +14,7 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
+                    <th>Post Count</th>
                     <th>Control</th>
                     <th>Created</th>
                 </tr>
@@ -33,6 +34,7 @@
                        {{$category->slug}}
                    </span>
                    </td>
+                    <th>{{$category->posts()->count()}}</th>
                     <td>
                         @can('update',$category)
                         <a class="btn btn-outline-warning" href="{{route('category.edit',$category->id)}}">

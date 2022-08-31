@@ -2,8 +2,7 @@ import './bootstrap';
 import '../sass/app.scss'
 import * as bootstrap from 'bootstrap'
 import '/node_modules/bootstrap-icons/font/bootstrap-icons.scss';
-// import Swal from "sweetalert2";
-import Swal from 'sweetalert2/dist/sweetalert2';
+import Swal from "sweetalert2";
 import 'sweetalert2/src/sweetalert2.scss';
 
 window.showToast = function (message){

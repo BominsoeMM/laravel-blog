@@ -7,6 +7,9 @@
     <a class="list-group-item list-group-item-action" href="{{route('test')}}">
         Test
     </a>
+    <a class="list-group-item list-group-item-action" href="{{route('photo.index')}}">
+        Photo
+    </a>
 </div>
 <p class="small text-black-50">Manage Post</p>
 <div class="list-group mb-3">

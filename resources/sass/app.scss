@@ -5,4 +5,10 @@
 @import 'variables';
 
 // Bootstrap
+$primary : orange;
 @import 'bootstrap/scss/bootstrap';
+
+
+.gallary{
+  columns: 3 200px;
+}

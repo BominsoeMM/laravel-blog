@@ -25,21 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(!Auth::user()->role === 'author') {
-            return view('home');
-        }
-        $posts = Post::when(request('keyword'), function ($q) {
-            $keyword = request('keyword');
-            $q->orWhere("title", "like", "%$keyword%")->orWhere("description", "like", "%$keyword%");
-        })
-            ->latest('id')
-            ->with(['category','user'])
-            ->paginate(10)
-            ->withQueryString();
-        return view('index',compact('posts'));
+        return view('home');
     }
 
-    public function test(){
+    public function test()
+    {
         return view('test');
     }
 }

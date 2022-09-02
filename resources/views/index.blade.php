@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
+            <div class="col-6 col-md-4 col-lg-8">
                 <h1 class="text-uppercase text-center">Blog Post</h1>
                 <div class="d-flex justify-content-between mb-3">
                     <div class="">

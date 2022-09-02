@@ -23,11 +23,11 @@ Route::get('/', function () {
 });
 Route::get('/', [PageController::class, 'index'])->name('page.index');
 Route::get('/page/{slug}', [PageController::class, 'page'])->name('page');
-Route::get('/catpage/{category:slug}', [PageController::class, 'catpage'])->name('page.cat');
+Route::get('/category/{category:slug}', [PageController::class, 'catpage'])->name('page.cat');
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/test',[\App\Http\Controllers\HomeController::class,'test'])->name('test');
-Route::middleware('auth')->group(function (){
+Route::middleware('auth')->prefix('dashboard')->group(function (){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('category',CategoryController::class);
     Route::resource('post',PostController::class);
     Route::resource('photo',PhotoController::class);
